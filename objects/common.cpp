@@ -1,0 +1,12 @@
+#include "common.h"
+#include "math.h"
+
+double CommonObject::getDistance(sf::Vector2i a, sf::Vector2i b) {
+  return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+}
+
+double CommonObject::getAngle(sf::Vector2i a, sf::Vector2i b) {
+  double dot = (a.x * b.x) + (a.y * b.y);
+  double prod = sqrt(pow(a.x, 2) + pow(a.y, 2)) * sqrt(pow(b.x, 2) + pow(b.y, 2));
+  return acos(dot/prod);
+}
