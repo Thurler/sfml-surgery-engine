@@ -6,11 +6,19 @@
 #include "common.h"
 #include "vitals.h"
 #include "tools/toolselect.h"
+#include "../objects/text.h"
 
 class OperationState: public CommonState {
   private:
-    VitalsState *vitals;
-    ToolSelectState *toolSelect;
+    static const sf::Vector2i timerPosition;
+    static const sf::Vector2i timerHeaderOffset;
+    double timer = 0;
+    VitalsState *vitals = NULL;
+    ToolSelectState *toolSelect = NULL;
+    TextObject *timerText = NULL;
+    TextObject *timerHeaderText = NULL;
+
+    void drawTime(sf::RenderWindow *w);
 
   public:
     OperationState(GlobalValues *g);

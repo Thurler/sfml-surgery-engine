@@ -10,3 +10,12 @@ double CommonObject::getAngle(sf::Vector2i a, sf::Vector2i b) {
   double prod = sqrt(pow(a.x, 2) + pow(a.y, 2)) * sqrt(pow(b.x, 2) + pow(b.y, 2));
   return acos(dot/prod);
 }
+
+std::string CommonObject::padIntToString(int value, unsigned int size, char padding) {
+  std::string str = std::to_string(value);
+  unsigned int current = str.size();
+  if (size > current) {
+    str.insert(0, size-current, padding);
+  }
+  return str;
+}
