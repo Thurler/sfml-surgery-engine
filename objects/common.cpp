@@ -11,7 +11,7 @@ double CommonObject::getAngle(sf::Vector2i a, sf::Vector2i b) {
   return acos(dot/prod);
 }
 
-std::string CommonObject::padIntToString(int value, unsigned int size, char padding) {
+std::string CommonObject::padIntToString(long value, unsigned int size, char padding) {
   std::string str = std::to_string(value);
   unsigned int current = str.size();
   if (size > current) {

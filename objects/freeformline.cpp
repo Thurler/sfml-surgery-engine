@@ -33,7 +33,7 @@ void FreeFormLineObject::replaceAndAddDuplicate() {
 void FreeFormLineObject::draw(sf::RenderWindow *window) {
   if (positions.size() < 2) return;
   sf::VertexArray form(sf::LineStrip, positions.size());
-  for (int i = 0; i < positions.size(); i++) {
+  for (unsigned long i = 0; i < positions.size(); i++) {
     form[i].position = sf::Vector2f(positions[i].x, positions[i].y);
     form[i].color = color;
   }

@@ -12,6 +12,7 @@ class OperationState: public CommonState {
   private:
     static const sf::Vector2i timerPosition;
     static const sf::Vector2i timerHeaderOffset;
+
     double timer = 0;
     VitalsState *vitals = NULL;
     ToolSelectState *toolSelect = NULL;
