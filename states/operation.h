@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "common.h"
+#include "score.h"
 #include "vitals.h"
 #include "tools/toolselect.h"
 #include "../objects/text.h"
@@ -14,6 +15,7 @@ class OperationState: public CommonState {
     static const sf::Vector2i timerHeaderOffset;
 
     double timer = 0;
+    ScoreState *score = NULL;
     VitalsState *vitals = NULL;
     ToolSelectState *toolSelect = NULL;
     TextObject *timerText = NULL;

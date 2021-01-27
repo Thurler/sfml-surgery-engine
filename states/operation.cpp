@@ -19,15 +19,18 @@ void OperationState::update(const sf::Time &time) {
   timer += elapsed;
   toolSelect->update(time);
   vitals->update(time);
+  score->update(time);
 }
 
 void OperationState::draw(sf::RenderWindow *window) {
   toolSelect->draw(window);
   vitals->draw(window);
+  score->draw(window);
   drawTime(window);
 }
 
 OperationState::OperationState(GlobalValues *global) : CommonState(global) {
+  score = new ScoreState(global);
   vitals = new VitalsState(global, 70, 99, 400);
   toolSelect = new ToolSelectState(global, vitals);
   timerText = new TextObject(global, timerPosition, sf::Color::White, 16);
@@ -40,6 +43,10 @@ OperationState::~OperationState() {
   if (toolSelect) {
     delete toolSelect;
     toolSelect = NULL;
+  }
+  if (score) {
+    delete score;
+    score = NULL;
   }
   if (vitals) {
     delete vitals;
