@@ -1,13 +1,16 @@
 #ifndef STATE_COMMONTOOL_H
 #define STATE_COMMONTOOL_H
 
+#include "../score.h"
 #include "../vitals.h"
 #include "../common.h"
 
 class CommonToolState: public CommonState {
   protected:
+    ScoreState *score;
     VitalsState *vitals;
-    CommonToolState(GlobalValues *g, VitalsState *v) : vitals(v), CommonState(g) {}
+    CommonToolState(GlobalValues *g, VitalsState *v, ScoreState *s) :
+      vitals(v), score(s), CommonState(g) {}
   public:
     virtual ~CommonToolState() {}
     virtual void deselect() = 0;

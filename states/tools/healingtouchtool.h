@@ -25,7 +25,7 @@ class HealingTouchToolState: public CommonToolState {
     void processStar();
 
   public:
-    HealingTouchToolState(GlobalValues *g, VitalsState *v) : CommonToolState(g, v) {}
+    HealingTouchToolState(GlobalValues *g, VitalsState *v, ScoreState *s) : CommonToolState(g, v, s) {}
     ~HealingTouchToolState();
 
     void deselect();

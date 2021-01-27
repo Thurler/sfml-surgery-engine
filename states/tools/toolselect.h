@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../score.h"
 #include "../vitals.h"
 #include "commontool.h"
 
@@ -22,10 +23,9 @@ class ToolSelectState: public CommonState {
     bool lastKeySpecial = false;
     CommonToolState *currentTool = NULL;
     CommonToolState *tools[toolCount] = {NULL};
-    VitalsState *vitals = NULL;
 
   public:
-    ToolSelectState(GlobalValues *g, VitalsState *v);
+    ToolSelectState(GlobalValues *g, VitalsState *v, ScoreState *s);
     ~ToolSelectState();
 
     void update(const sf::Time &t);

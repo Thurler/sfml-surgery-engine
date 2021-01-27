@@ -32,7 +32,7 @@ void OperationState::draw(sf::RenderWindow *window) {
 OperationState::OperationState(GlobalValues *global) : CommonState(global) {
   score = new ScoreState(global);
   vitals = new VitalsState(global, 70, 99, 400);
-  toolSelect = new ToolSelectState(global, vitals);
+  toolSelect = new ToolSelectState(global, vitals, score);
   timerText = new TextObject(global, timerPosition, sf::Color::White, 16);
   sf::Vector2i headerPosition = timerPosition + timerHeaderOffset;
   timerHeaderText = new TextObject(global, headerPosition, sf::Color::White, 16);

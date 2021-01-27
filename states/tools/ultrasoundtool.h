@@ -18,7 +18,7 @@ class UltrasoundToolState: public CommonToolState {
     void updateRipples(const sf::Time &t);
 
   public:
-    UltrasoundToolState(GlobalValues *g, VitalsState *v) : CommonToolState(g, v) {}
+    UltrasoundToolState(GlobalValues *g, VitalsState *v, ScoreState *s) : CommonToolState(g, v, s) {}
     ~UltrasoundToolState();
 
     void deselect();

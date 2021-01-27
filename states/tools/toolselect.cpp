@@ -92,17 +92,18 @@ void ToolSelectState::draw(sf::RenderWindow *window) {
   }
 }
 
-ToolSelectState::ToolSelectState(GlobalValues *global, VitalsState *v) :
-vitals(v), CommonState(global) {
-  tools[Tool::Suture] = new SutureToolState(global, v);
-  tools[Tool::Syringe] = new SyringeToolState(global, v);
-  tools[Tool::Gel] = new GelToolState(global, v);
-  tools[Tool::Forceps] = new ForcepsToolState(global, v);
-  tools[Tool::Scalpel] = new ScalpelToolState(global, v);
-  tools[Tool::Ultrasound] = new UltrasoundToolState(global, v);
-  tools[Tool::Laser] = new LaserToolState(global, v);
-  tools[Tool::Drain] = new DrainToolState(global, v);
-  tools[Tool::HealingTouch] = new HealingTouchToolState(global, v);
+ToolSelectState::ToolSelectState(
+  GlobalValues *global, VitalsState *vitals, ScoreState *score
+) : CommonState(global) {
+  tools[Tool::Suture] = new SutureToolState(global, vitals, score);
+  tools[Tool::Syringe] = new SyringeToolState(global, vitals, score);
+  tools[Tool::Gel] = new GelToolState(global, vitals, score);
+  tools[Tool::Forceps] = new ForcepsToolState(global, vitals, score);
+  tools[Tool::Scalpel] = new ScalpelToolState(global, vitals, score);
+  tools[Tool::Ultrasound] = new UltrasoundToolState(global, vitals, score);
+  tools[Tool::Laser] = new LaserToolState(global, vitals, score);
+  tools[Tool::Drain] = new DrainToolState(global, vitals, score);
+  tools[Tool::HealingTouch] = new HealingTouchToolState(global, vitals, score);
 }
 
 ToolSelectState::~ToolSelectState() {

@@ -26,7 +26,7 @@ class SutureToolState: public CommonToolState {
     void processSuture();
 
   public:
-    SutureToolState(GlobalValues *g, VitalsState *v) : CommonToolState(g, v) {}
+    SutureToolState(GlobalValues *g, VitalsState *v, ScoreState *s) : CommonToolState(g, v, s) {}
     ~SutureToolState();
 
     void deselect();

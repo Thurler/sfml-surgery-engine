@@ -28,7 +28,7 @@ class SyringeToolState: public CommonToolState {
     void drawTubePositions(sf::VertexArray &tube);
 
   public:
-    SyringeToolState(GlobalValues *g, VitalsState *v) : CommonToolState(g, v) {}
+    SyringeToolState(GlobalValues *g, VitalsState *v, ScoreState *s) : CommonToolState(g, v, s) {}
     ~SyringeToolState();
 
     void deselect();

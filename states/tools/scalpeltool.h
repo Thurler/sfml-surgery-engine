@@ -16,7 +16,7 @@ class ScalpelToolState: public CommonToolState {
     void processScalpel();
 
   public:
-    ScalpelToolState(GlobalValues *g, VitalsState *v) : CommonToolState(g, v) {}
+    ScalpelToolState(GlobalValues *g, VitalsState *v, ScoreState *s) : CommonToolState(g, v, s) {}
     ~ScalpelToolState();
 
     void deselect();
