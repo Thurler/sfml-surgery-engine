@@ -50,7 +50,9 @@ void VitalsState::update(const sf::Time &time) {
   } else if (accumulatedDamage > 0) {
     applyDamage(accumulatedDamage);
   }
-  if (accumulatedHeal > 0) {
+  if (accumulatedHeal > limit) {
+    applyHeal(limit);
+  } else if (accumulatedHeal > 0) {
     applyHeal(accumulatedHeal);
   }
 }
