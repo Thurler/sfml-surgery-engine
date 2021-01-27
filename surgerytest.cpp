@@ -7,7 +7,7 @@
 #include "objects/fpstext.h"
 #include "objects/pointer.h"
 
-// g++ *.cpp objects/*.cpp states/*.cpp states/tools/*.cpp -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics -lsfml-window -lsfml-system -o s.exe
+// g++ *.cpp objects/*.cpp states/*.cpp states/tools/*.cpp -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics -lsfml-window -lsfml-system -O2 -o s.exe
 
 void out(double data) {
   std::cout << data << std::endl;
