@@ -11,7 +11,9 @@ class CommonObject {
     CommonObject(GlobalValues *g) : global(g) {}
     ~CommonObject() {}
 
+    sf::Vector2f unitAtAngle(double angle);
     double getDistance(sf::Vector2i a, sf::Vector2i b);
+    double getDistance(sf::Vector2f a, sf::Vector2i b);
     double getAngle(sf::Vector2i a, sf::Vector2i b);
     std::string padIntToString(long s, unsigned int sz, char p);
 

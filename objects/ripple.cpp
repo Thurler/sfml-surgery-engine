@@ -1,5 +1,9 @@
 #include "ripple.h"
 
+unsigned int Ripple::effectiveRadius() {
+  return radius + std::min(1.0, timer/expansion)*growthRadius;
+}
+
 void Ripple::update(const sf::Time &time) {
   timer += time.asMicroseconds() / 1000000.0f;
   if (timer > duration) {
@@ -8,9 +12,9 @@ void Ripple::update(const sf::Time &time) {
 }
 
 void Ripple::draw(sf::RenderWindow *window) {
-  int effectiveRadius = radius + std::min(1.0, timer/expansion)*growthRadius;
-  sf::CircleShape ripple(effectiveRadius);
+  int effRadius = effectiveRadius();
+  sf::CircleShape ripple(effRadius);
   ripple.setFillColor(color);
-  ripple.setPosition(center.x - effectiveRadius, center.y - effectiveRadius);
+  ripple.setPosition(center.x - effRadius, center.y - effRadius);
   window->draw(ripple);
 }

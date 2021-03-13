@@ -1,15 +1,25 @@
 #ifndef STATE_TESTPATIENT_H
 #define STATE_TESTPATIENT_H
 
+#include <SFML/Graphics.hpp>
+
+#include "../enemy/smallcut.h"
 #include "common.h"
 
 class TestPatientState: public CommonPatientState {
-  public:
-    TestPatientState(GlobalValues *g, VitalsState *v, ScoreState *s) : CommonPatientState(g, v, s) {}
-    ~TestPatientState() {}
+  private:
+    static constexpr unsigned int smallCutCount = 3;
+    static const sf::Vector2i smallCutsPositions[smallCutCount];
+    static const double smallCutsAngles[smallCutCount];
 
-    void update(const sf::Time &t) {}
-    void draw(sf::RenderWindow *w) {}
+    SmallCutState *smallCuts[smallCutCount];
+
+  public:
+    TestPatientState(GlobalValues *g, VitalsState *v, ScoreState *s);
+    ~TestPatientState();
+
+    void update(const sf::Time &t);
+    void draw(sf::RenderWindow *w);
 
     void interactGel(const std::vector<Ripple *> &ripples, double healed);
     void interactSuture() {}

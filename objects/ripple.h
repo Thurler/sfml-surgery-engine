@@ -29,7 +29,9 @@ class Ripple {
         center(c), color(cl), duration(d), expansion(e), radius(r), growthRadius(gr), properties(p) {}
     ~Ripple() {}
 
+    unsigned int effectiveRadius();
     bool hasExpired() { return expired; }
+    sf::Vector2i getCenter() { return center; }
     RippleProperties * getProperties() { return properties; }
     void update(const sf::Time &t);
     void draw(sf::RenderWindow *w);

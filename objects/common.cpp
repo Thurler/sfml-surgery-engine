@@ -1,7 +1,15 @@
 #include "common.h"
 #include "math.h"
 
+sf::Vector2f CommonObject::unitAtAngle(double angle) {
+  return sf::Vector2f(cos(angle), sin(angle));
+}
+
 double CommonObject::getDistance(sf::Vector2i a, sf::Vector2i b) {
+  return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+}
+
+double CommonObject::getDistance(sf::Vector2f a, sf::Vector2i b) {
   return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
 }
 

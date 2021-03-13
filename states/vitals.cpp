@@ -42,7 +42,7 @@ void VitalsState::update(const sf::Time &time) {
   double elapsed = global->getElapsedTime();
   // For now, passively subtract 1 vital every 0.5 seconds
   double damage = elapsed*2;
-  receiveDamage(damage);
+  // receiveDamage(damage);
   // Check accumulated damage - apply damage/heal as necessary
   double limit = elapsed*maxChangePerSecond;
   if (accumulatedDamage > limit) {
