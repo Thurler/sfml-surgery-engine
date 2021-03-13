@@ -7,8 +7,8 @@
 #include "objects/fpstext.h"
 #include "objects/pointer.h"
 
-// g++ *.cpp objects/*.cpp states/*.cpp states/tools/*.cpp -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics -lsfml-window -lsfml-system -O2 -o shared.exe
-// g++ *.cpp objects/*.cpp states/*.cpp states/tools/*.cpp -DSFML_STATIC -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lfreetype -lgdi32 -lwinmm -O2 -o static.exe
+// g++ *.cpp objects/*.cpp states/*.cpp states/tools/*.cpp states/enemy/*.cpp states/patient/*.cpp -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics -lsfml-window -lsfml-system -O2 -o shared.exe
+// g++ *.cpp objects/*.cpp states/*.cpp states/tools/*.cpp states/enemy/*.cpp states/patient/*.cpp -DSFML_STATIC -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lfreetype -lgdi32 -lwinmm -O2 -o static.exe
 
 void out(double data) {
   std::cout << data << std::endl;
