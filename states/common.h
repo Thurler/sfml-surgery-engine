@@ -2,7 +2,6 @@
 #define STATE_COMMON_H
 
 #include "../objects/common.h"
-#include "../global.h"
 
 class CommonState: public CommonObject {
   protected:
