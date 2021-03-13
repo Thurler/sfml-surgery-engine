@@ -37,7 +37,7 @@ void SyringeToolState::processSyringe(const sf::Time &time) {
       filled = 0;
     }
     healed *= fullHeal;
-    // vitals->receiveHeal(healed);
+    patient->interactStabilizer(healed);
   }
 }
 
