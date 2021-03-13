@@ -31,7 +31,7 @@ class GelToolState: public CommonToolState {
     void updateRipples(const sf::Time &t);
 
   public:
-    GelToolState(GlobalValues *g, VitalsState *v, ScoreState *s) : CommonToolState(g, v, s) {}
+    GelToolState(GlobalValues *g, CommonPatientState *p) : CommonToolState(g, p) {}
     ~GelToolState();
 
     void deselect();

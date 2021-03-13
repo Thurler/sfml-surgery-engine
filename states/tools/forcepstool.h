@@ -11,7 +11,7 @@ class ForcepsToolState: public CommonToolState {
     void processForceps();
 
   public:
-    ForcepsToolState(GlobalValues *g, VitalsState *v, ScoreState *s) : CommonToolState(g, v, s) {}
+    ForcepsToolState(GlobalValues *g, CommonPatientState *p) : CommonToolState(g, p) {}
     ~ForcepsToolState();
 
     void deselect();

@@ -6,6 +6,7 @@
 #include "common.h"
 #include "score.h"
 #include "vitals.h"
+#include "patient/common.h"
 #include "tools/toolselect.h"
 #include "../objects/text.h"
 
@@ -17,6 +18,7 @@ class OperationState: public CommonState {
     double timer = 0;
     ScoreState *score = NULL;
     VitalsState *vitals = NULL;
+    CommonPatientState *patient = NULL;
     ToolSelectState *toolSelect = NULL;
     TextObject *timerText = NULL;
     TextObject *timerHeaderText = NULL;

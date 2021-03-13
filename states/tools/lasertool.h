@@ -14,7 +14,7 @@ class LaserToolState: public CommonToolState {
     void processLaser();
 
   public:
-    LaserToolState(GlobalValues *g, VitalsState *v, ScoreState *s) : CommonToolState(g, v, s) {}
+    LaserToolState(GlobalValues *g, CommonPatientState *p) : CommonToolState(g, p) {}
     ~LaserToolState();
 
     void deselect();

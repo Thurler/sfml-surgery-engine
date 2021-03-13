@@ -25,7 +25,7 @@ class ToolSelectState: public CommonState {
     CommonToolState *tools[toolCount] = {NULL};
 
   public:
-    ToolSelectState(GlobalValues *g, VitalsState *v, ScoreState *s);
+    ToolSelectState(GlobalValues *g, CommonPatientState *p);
     ~ToolSelectState();
 
     void update(const sf::Time &t);

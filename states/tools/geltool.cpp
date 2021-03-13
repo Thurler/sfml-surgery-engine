@@ -29,7 +29,7 @@ void GelToolState::updateRipples(const sf::Time &time) {
       if (!dynamic_cast<GelProperties *>(ripples[i]->getProperties())->isSmall()) {
         // provide some healing for major ripples
         double elapsed = time.asMicroseconds() / 1000000.0;
-        vitals->receiveHeal((elapsed/duration)*fullHeal);
+        // vitals->receiveHeal((elapsed/duration)*fullHeal);
       }
     }
   }

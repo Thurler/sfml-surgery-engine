@@ -12,7 +12,7 @@ class DrainToolState: public CommonToolState {
     void processDrain();
 
   public:
-    DrainToolState(GlobalValues *g, VitalsState *v, ScoreState *s) : CommonToolState(g, v, s) {}
+    DrainToolState(GlobalValues *g, CommonPatientState *p) : CommonToolState(g, p) {}
     ~DrainToolState();
 
     void deselect();
