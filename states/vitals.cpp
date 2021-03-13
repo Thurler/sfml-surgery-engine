@@ -137,10 +137,10 @@ void VitalsState::draw(sf::RenderWindow *window) {
 }
 
 VitalsState::VitalsState(GlobalValues *g, double c, double m, double f) :
-current(c), gaugeMax(m), currentFull(f), startingFull(f), CommonState(global) {
-  currentText = new TextObject(global, vitalsPosition, sf::Color::White, 30);
+current(c), gaugeMax(m), currentFull(f), startingFull(f), CommonState(g) {
+  currentText = new TextObject(g, vitalsPosition, sf::Color::White, 30);
   sf::Vector2i fullPosition = vitalsPosition + fullVitalsOffset;
-  currentFullText = new TextObject(global, fullPosition, sf::Color::White, 15);
+  currentFullText = new TextObject(g, fullPosition, sf::Color::White, 15);
 }
 
 VitalsState::~VitalsState() {
