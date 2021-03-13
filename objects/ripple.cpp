@@ -5,7 +5,7 @@ unsigned int Ripple::effectiveRadius() {
 }
 
 void Ripple::update(const sf::Time &time) {
-  timer += time.asMicroseconds() / 1000000.0f;
+  timer += global->getElapsedTime();
   if (timer > duration) {
     expired = true;
   }

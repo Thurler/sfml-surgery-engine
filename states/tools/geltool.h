@@ -20,11 +20,13 @@ class GelProperties: public RippleProperties {
 class GelToolState: public CommonToolState {
   private:
     static constexpr double cooldown = 0.1;
+    static constexpr double cooldownSmall = 0.015;
     static constexpr double duration = 1.5;
     static constexpr unsigned int radius = 20;
     static constexpr double fullHeal = 0.2;
     std::vector<Ripple *> ripples;
     sf::Vector2i lastCenter;
+    double timerSmall = 0;
     double timer = 0;
 
     void initRipple(bool small);

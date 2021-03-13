@@ -11,7 +11,7 @@ class RippleProperties {
     virtual ~RippleProperties() {}
 };
 
-class Ripple {
+class Ripple: public CommonObject {
   private:
 
     sf::Vector2i center;
@@ -25,8 +25,12 @@ class Ripple {
     RippleProperties *properties;
 
   public:
-    Ripple(const sf::Vector2i &c, sf::Color cl, double d, double e, int r, int gr, RippleProperties *p) :
-        center(c), color(cl), duration(d), expansion(e), radius(r), growthRadius(gr), properties(p) {}
+    Ripple(
+      GlobalValues *g, const sf::Vector2i &c, sf::Color cl, double d, double e,
+      int r, int gr, RippleProperties *p
+    ) :
+      center(c), color(cl), duration(d), expansion(e), radius(r),
+      growthRadius(gr), properties(p), CommonObject(g) {}
     ~Ripple() {}
 
     unsigned int effectiveRadius();

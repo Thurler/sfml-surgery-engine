@@ -3,7 +3,7 @@
 void UltrasoundToolState::initRipple() {
   sf::Vector2i center = global->getMousePos();
   Ripple *ripple = new Ripple(
-    center, sf::Color(255, 255, 255, 64), 0.7, 0.25, 50, 70, NULL
+    global, center, sf::Color(255, 255, 255, 64), 0.7, 0.25, 50, 70, NULL
   );
   ripples.push_back(ripple);
   timer = cooldown;
@@ -31,7 +31,7 @@ void UltrasoundToolState::update(const sf::Time &time, bool active) {
   updateRipples(time);
   // decrement cooldown timer if above 0
   if (timer > 0) {
-    timer -= time.asMicroseconds() / 1000000.0f;
+    timer -= global->getElapsedTime();
     if (timer < 0) {
       timer = 0;
     }

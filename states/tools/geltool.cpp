@@ -6,11 +6,14 @@ void GelToolState::initRipple(bool small) {
   GelProperties *properties = new GelProperties(small);
   if (small) {
     ripple = new Ripple(
-      center, sf::Color(0, 255, 0, 64), duration, 0.5, radius - 10, radius, properties
+      global, center, sf::Color(0, 255, 0, 64), duration, 0.5, radius - 10,
+      radius, properties
     );
+    timerSmall = cooldownSmall;
   } else {
     ripple = new Ripple(
-      center, sf::Color(0, 255, 0, 64), duration, 0.5, radius, radius + 10, properties
+      global, center, sf::Color(0, 255, 0, 64), duration, 0.5, radius,
+      radius + 10, properties
     );
     timer = cooldown;
   }
@@ -43,21 +46,29 @@ void GelToolState::update(const sf::Time &time, bool active) {
   updateRipples(time);
   // decrement cooldown timer if above 0
   if (timer > 0) {
-    timer -= time.asMicroseconds() / 1000000.0f;
+    timer -= global->getElapsedTime();
     if (timer < 0) {
       timer = 0;
+    }
+  }
+  if (timerSmall > 0) {
+    timerSmall -= global->getElapsedTime();
+    if (timerSmall < 0) {
+      timerSmall = 0;
     }
   }
   // check input for a new ripple, but only if active
   if (!active) return;
   bool isMouseActive = global->getMouseActive();
   if (isMouseActive) {
-    // check cooldown to spawn new big ripple
+    // check cooldown to spawn new big/small ripple
     if (timer <= 0) {
       initRipple(false);
-    } else if (getDistance(global->getMousePos(), lastCenter) >= radius) {
+    } else if (timerSmall <= 0) {
       // otherwise, check distance to spawn new small ripple
-      initRipple(true);
+      if (getDistance(global->getMousePos(), lastCenter) >= radius) {
+        initRipple(true);
+      }
     }
   }
 }
