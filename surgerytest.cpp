@@ -38,6 +38,7 @@ int main() {
 
   while (window.isOpen()) {
     sf::Time time = global->restartTime();
+    global->setElapsedTime(time.asMicroseconds() / 1000000.0);
     sf::Event event;
     while (window.pollEvent(event)) {
       switch (event.type) {
@@ -50,6 +51,7 @@ int main() {
         case sf::Event::GainedFocus:
           global->setFocus(true);
           global->restartTime();
+          global->setElapsedTime(time.asMicroseconds() / 1000000.0);
           break;
         case sf::Event::KeyPressed:
           break;
