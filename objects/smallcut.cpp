@@ -1,10 +1,20 @@
 #include "smallcut.h"
 
-unsigned int SmallCut::collide(Ripple *ripple) {
+double SmallCut::collide(Ripple *ripple) {
   double distA = getDistance(positionA, ripple->getCenter());
   double distB = getDistance(positionB, ripple->getCenter());
   unsigned int radius = ripple->effectiveRadius();
-  return (distA <= radius) + (distB <= radius);
+  bool inA = (distA <= radius);
+  bool inB = (distB <= radius);
+  if (inA && inB) {
+    return 1;
+  } else if (!inA && !inB) {
+    return 0;
+  } else if (inA) {
+    return (radius - distA)/radius;
+  } else {
+    return (radius - distB)/radius;
+  }
 }
 
 void SmallCut::draw(sf::RenderWindow *window) {

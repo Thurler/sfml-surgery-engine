@@ -17,7 +17,7 @@ class SmallCut: public CommonObject {
     SmallCut(GlobalValues *g, const sf::Vector2i &p, double a);
     ~SmallCut() {}
 
-    unsigned int collide(Ripple *ripple);
+    double collide(Ripple *ripple);
 
     void update(const sf::Time &t) {}
     void draw(sf::RenderWindow *w);
