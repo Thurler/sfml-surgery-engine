@@ -25,7 +25,7 @@ void SyringeToolState::processSyringe(const sf::Time &time) {
     // keep cursor locked in place
     global->setMousePos(lockedPosition);
   }
-  double elapsed = time.asMicroseconds() / 1000000.0f;
+  double elapsed = global->getElapsedTime();
   if (filling) {
     filled += (elapsed/timeToFill);
     if (filled > 1) filled = 1;

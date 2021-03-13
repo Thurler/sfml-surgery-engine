@@ -21,7 +21,7 @@ void GelToolState::initRipple(bool small) {
 void GelToolState::updateRipples(const sf::Time &time) {
   // update ongoing ripples, check for expired
   std::vector<unsigned long> expired;
-  double elapsed = time.asMicroseconds() / 1000000.0;
+  double elapsed = global->getElapsedTime();
   double healed = (elapsed/duration)*fullHeal;
   for (unsigned long i = 0; i < ripples.size(); i++) {
     if (ripples[i]->hasExpired()) {

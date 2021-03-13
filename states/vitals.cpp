@@ -39,7 +39,7 @@ void VitalsState::applyHeal(double heal) {
 }
 
 void VitalsState::update(const sf::Time &time) {
-  double elapsed = time.asMicroseconds() / 1000000.0;
+  double elapsed = global->getElapsedTime();
   // For now, passively subtract 1 vital every 0.5 seconds
   double damage = elapsed*2;
   receiveDamage(damage);
