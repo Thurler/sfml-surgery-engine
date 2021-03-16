@@ -2,7 +2,7 @@
 #include "test.h"
 
 #include "math.h"
-#include <iostream>
+
 const sf::Vector2i TestPatientState::smallCutsPositions[smallCutCount] = {
   sf::Vector2i(100, 200), sf::Vector2i(200, 400), sf::Vector2i(500, 300)
 };

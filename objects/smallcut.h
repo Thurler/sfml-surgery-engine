@@ -12,6 +12,8 @@ class SmallCut: public CommonObject {
 
     sf::Vector2f positionA;
     sf::Vector2f positionB;
+    sf::Vector2f unit;
+    double lineEquation[2];
 
   public:
     SmallCut(GlobalValues *g, const sf::Vector2i &p, double a);
