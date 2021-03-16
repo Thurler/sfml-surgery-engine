@@ -64,7 +64,6 @@ bool CommonObject::solveLineCircleIntersect(
   double b = lineParams[1];
   double bTwo = pow(b, 2);
   double x = center.x;
-  double xTwo = pow(x, 2);
   double y = center.y;
   double quadA = bTwo + pow(a, 2);
   double quadB = -2*(bTwo*x + a*(1-b*y));
