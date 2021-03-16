@@ -26,11 +26,11 @@ double SmallCut::collide(Ripple *ripple) {
   sf::Vector2f solutions[2];
   solveLineCircleIntersect(lineEquation, center, radius, solutions);
   // Find which solutions sits between A and B
-  sf::Vector2f solution;
   double angle = getAngle(
     unit, sf::Vector2f(solutions[0].x - pivot.x, solutions[0].y - pivot.y)
   );
-  if (angle < 1) {
+  sf::Vector2f solution;
+  if ((angle < 1 && inA) || (angle > 1 && inB)) {
     solution = solutions[0];
   } else {
     solution = solutions[1];
