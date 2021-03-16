@@ -57,7 +57,7 @@ bool CommonObject::solveLineCircleIntersect(
   // Line ax+by=1
   // Circle (x-x0)^2 + (y-y0)^2 = r^2
   // Solution is generic Ax^2+Bx+C=0
-  // A = b^2 - a^2
+  // A = b^2 + a^2
   // B = -2 * (x0*(b^2) + a*(1-b*y0))
   // C = (b^2)*(x0^2 + y0^2 - r^2) - 2*b*y0 + 1
   double a = lineParams[0];
