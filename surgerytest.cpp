@@ -29,12 +29,11 @@ int main() {
   window.setKeyRepeatEnabled(false);
 
   GlobalValues *global = new GlobalValues();
-
-  OperationState *operationState = new OperationState(global);
-
+  PointerObject *pointer = new PointerObject(global);
   MouseTextObject *mouseDebug = new MouseTextObject(global);
   FPSTextObject *fpsDebug = new FPSTextObject(global);
-  PointerObject *pointer = new PointerObject(global);
+
+  OperationState *operationState = new OperationState(global);
 
   while (window.isOpen()) {
     sf::Time time = global->restartTime();
