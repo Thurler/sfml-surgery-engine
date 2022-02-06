@@ -26,6 +26,7 @@ class ToolSelectState: public CommonState {
     static const unsigned int toolRadius = 10;
     static const sf::Vector2i toolPosition;
 
+    unsigned int diagonalRelease = 0;
     bool lastKeyUp = false;
     bool lastKeyDown = false;
     bool lastKeyLeft = false;

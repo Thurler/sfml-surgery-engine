@@ -21,6 +21,10 @@ void ToolSelectState::update(const sf::Time &time) {
   bool isKeyLeft = global->getKeyLeft();
   bool isKeyRight = global->getKeyRight();
   bool isKeySpecial = global->getKeySpecial();
+  bool upLeftDiag = isKeyUp && isKeyLeft;
+  bool upRightDiag = isKeyUp && isKeyRight;
+  bool downLeftDiag = isKeyDown && isKeyLeft;
+  bool downRightDiag = isKeyDown && isKeyRight;
 
   CommonToolState *newTool = NULL;
   if (!lastKeySpecial && isKeySpecial) {
@@ -29,31 +33,39 @@ void ToolSelectState::update(const sf::Time &time) {
   } else if ((!lastKeyUp || !lastKeyLeft) && isKeyLeft && isKeyUp) {
     // pushed up left key - select forceps
     newTool = tools[Tool::Forceps];
+    diagonalRelease = 0;
   } else if ((!lastKeyUp || !lastKeyRight) && isKeyRight && isKeyUp) {
     // pushed up right key - select syringe
     newTool = tools[Tool::Syringe];
+    diagonalRelease = 0;
   } else if ((!lastKeyDown || !lastKeyLeft) && isKeyLeft && isKeyDown) {
     // pushed down left key - select ultrasound
     newTool = tools[Tool::Ultrasound];
+    diagonalRelease = 0;
   } else if ((!lastKeyDown || !lastKeyRight) && isKeyRight && isKeyDown) {
     // pushed down right key - select drain
     newTool = tools[Tool::Drain];
-  } else if (!lastKeyUp && isKeyUp) {
+    diagonalRelease = 0;
+  } else if ((!lastKeyUp || diagonalRelease > 1) && isKeyUp) {
     // pushed up key - select gel
     newTool = tools[Tool::Gel];
-  } else if (!lastKeyLeft && isKeyLeft) {
+  } else if ((!lastKeyLeft || diagonalRelease > 1) && isKeyLeft) {
     // pushed left key - select scalpel
     newTool = tools[Tool::Scalpel];
-  } else if (!lastKeyDown && isKeyDown) {
+  } else if ((!lastKeyDown || diagonalRelease > 1) && isKeyDown) {
     // pushed down key - select laser
     newTool = tools[Tool::Laser];
-  } else if (!lastKeyRight && isKeyRight) {
+  } else if ((!lastKeyRight || diagonalRelease > 1) && isKeyRight) {
     // pushed right key - select suture
     newTool = tools[Tool::Suture];
   }
-  if (newTool) {
+  if (newTool && newTool != currentTool) {
     if (currentTool) currentTool->deselect();
     currentTool = newTool;
+  }
+
+  if (!upLeftDiag && !upRightDiag && !downLeftDiag && !downRightDiag) {
+    diagonalRelease++;
   }
 
   lastKeyUp = isKeyUp;
