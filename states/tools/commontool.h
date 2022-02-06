@@ -11,9 +11,9 @@ class CommonToolState: public CommonState {
   public:
     virtual ~CommonToolState() {}
     virtual void deselect() = 0;
-    virtual void update(const sf::Time &t, bool active) = 0;
+    virtual void update(bool active) = 0;
     virtual void draw(sf::RenderWindow *w, bool active) = 0;
-    void update(const sf::Time &t) { update(t, true); }
+    void update() { update(true); }
     void draw(sf::RenderWindow *w) { draw(w, true); }
 };
 

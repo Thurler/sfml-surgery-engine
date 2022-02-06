@@ -24,7 +24,7 @@ class TextObject: public CommonObject {
     }
     ~TextObject() {}
 
-    virtual void update(const sf::Time &t) {}
+    virtual void update() {}
     virtual void draw(sf::RenderWindow *w);
     void setContent(const std::string &c) { content = c; }
     void setColor(const sf::Color &c) { color = c; }

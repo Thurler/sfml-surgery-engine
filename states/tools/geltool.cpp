@@ -21,7 +21,7 @@ void GelToolState::initRipple(bool small) {
   lastCenter = center;
 }
 
-void GelToolState::updateRipples(const sf::Time &time) {
+void GelToolState::updateRipples() {
   // update ongoing ripples, check for expired
   std::vector<unsigned long> expired;
   double elapsed = global->getElapsedTime();
@@ -30,7 +30,7 @@ void GelToolState::updateRipples(const sf::Time &time) {
     if (ripples[i]->hasExpired()) {
       expired.push_back(i);
     } else {
-      ripples[i]->update(time);
+      ripples[i]->update();
     }
   }
   // removed expired ripples, if any
@@ -42,8 +42,8 @@ void GelToolState::updateRipples(const sf::Time &time) {
   patient->interactGel(ripples, healed);
 }
 
-void GelToolState::update(const sf::Time &time, bool active) {
-  updateRipples(time);
+void GelToolState::update(bool active) {
+  updateRipples();
   // decrement cooldown timer if above 0
   if (timer > 0) {
     timer -= global->getElapsedTime();

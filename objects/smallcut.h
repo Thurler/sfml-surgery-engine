@@ -21,7 +21,7 @@ class SmallCut: public CommonObject {
 
     double collide(Ripple *ripple);
 
-    void update(const sf::Time &t) {}
+    void update() {}
     void draw(sf::RenderWindow *w);
 };
 

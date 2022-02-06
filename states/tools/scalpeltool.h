@@ -20,7 +20,7 @@ class ScalpelToolState: public CommonToolState {
     ~ScalpelToolState();
 
     void deselect();
-    void update(const sf::Time &t, bool active);
+    void update(bool active);
     void draw(sf::RenderWindow *w, bool active);
 };
 

@@ -3,7 +3,7 @@
 const sf::Vector2i ScoreState::scorePosition = sf::Vector2i(1250, 100);
 const sf::Vector2i ScoreState::scoreHeaderOffset = sf::Vector2i(0, -20);
 
-void ScoreState::update(const sf::Time &time) {
+void ScoreState::update() {
   if (pendingScore > 0) {
     if (pendingScore > maxChange) {
       score += maxChange;

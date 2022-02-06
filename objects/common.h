@@ -24,7 +24,7 @@ class CommonObject {
     std::string padIntToString(long s, unsigned int sz, char p);
 
   public:
-    virtual void update(const sf::Time &t) = 0;
+    virtual void update() = 0;
     virtual void draw(sf::RenderWindow *w) = 0;
 };
 

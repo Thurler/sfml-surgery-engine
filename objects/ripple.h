@@ -37,7 +37,7 @@ class Ripple: public CommonObject {
     bool hasExpired() { return expired; }
     sf::Vector2i getCenter() { return center; }
     RippleProperties * getProperties() { return properties; }
-    void update(const sf::Time &t);
+    void update();
     void draw(sf::RenderWindow *w);
 };
 

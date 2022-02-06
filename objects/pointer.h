@@ -13,7 +13,7 @@ class PointerObject: public CommonObject {
     PointerObject(GlobalValues *g) : CommonObject(g) {}
     ~PointerObject() {}
 
-    void update(const sf::Time &t);
+    void update();
     void draw(sf::RenderWindow *w);
 };
 

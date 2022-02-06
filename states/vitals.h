@@ -42,7 +42,7 @@ class VitalsState: public CommonState {
     VitalsState(GlobalValues *g, double c, double m, double f);
     ~VitalsState();
 
-    void update(const sf::Time &t);
+    void update();
     void draw(sf::RenderWindow *w);
     void receiveDamage(double damage) { accumulatedDamage += damage; }
     void receivePermDamage(double damage) { accumulatedPermDamage += damage; }

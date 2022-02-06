@@ -38,7 +38,7 @@ void TestPatientState::interactGel(const std::vector<Ripple *> &ripples, double 
   }
 }
 
-void TestPatientState::update(const sf::Time &time) {
+void TestPatientState::update() {
   for (unsigned int i = 0; i < smallCutCount; i++) {
     if (smallCuts[i] == NULL) continue;
     if (smallCuts[i]->isDead()) {

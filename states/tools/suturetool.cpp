@@ -45,7 +45,7 @@ void SutureToolState::processSuture() {
   }
 }
 
-void SutureToolState::update(const sf::Time &t, bool active) {
+void SutureToolState::update(bool active) {
   if (!active) return;
   bool isMouseActive = global->getMouseActive();
   if (lastMouseActive && isMouseActive) {

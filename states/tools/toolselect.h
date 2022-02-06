@@ -39,7 +39,7 @@ class ToolSelectState: public CommonState {
     ToolSelectState(GlobalValues *g, CommonPatientState *p);
     ~ToolSelectState();
 
-    void update(const sf::Time &t);
+    void update();
     void draw(sf::RenderWindow *w);
 };
 

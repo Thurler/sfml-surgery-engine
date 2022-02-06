@@ -42,7 +42,7 @@ void HealingTouchToolState::processStar() {
   starLineObject->replacePoint();
 }
 
-void HealingTouchToolState::update(const sf::Time &t, bool active) {
+void HealingTouchToolState::update(bool active) {
   if (!active) return;
   bool isMouseActive = global->getMouseActive();
   if (lastMouseActive && isMouseActive) {

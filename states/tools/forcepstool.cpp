@@ -3,7 +3,7 @@
 void ForcepsToolState::processForceps() {
 }
 
-void ForcepsToolState::update(const sf::Time &t, bool active) {
+void ForcepsToolState::update(bool active) {
   processForceps();
 }
 

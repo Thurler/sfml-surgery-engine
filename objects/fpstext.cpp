@@ -3,8 +3,8 @@
 
 #include "fpstext.h"
 
-void FPSTextObject::update(const sf::Time &time) {
-  unsigned int fps = round(1000000.0f / time.asMicroseconds());
+void FPSTextObject::update() {
+  unsigned int fps = round(1.0 / global->getElapsedTime());
   lastValues[index++] = fps;
   if (index >= limit) index = 0;
   unsigned long sum = 0;

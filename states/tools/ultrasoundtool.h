@@ -15,14 +15,14 @@ class UltrasoundToolState: public CommonToolState {
     double timer = 0;
 
     void initRipple();
-    void updateRipples(const sf::Time &t);
+    void updateRipples();
 
   public:
     UltrasoundToolState(GlobalValues *g, CommonPatientState *p) : CommonToolState(g, p) {}
     ~UltrasoundToolState();
 
     void deselect();
-    void update(const sf::Time &t, bool active);
+    void update(bool active);
     void draw(sf::RenderWindow *w, bool active);
 };
 

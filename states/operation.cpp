@@ -15,12 +15,12 @@ void OperationState::drawTime(sf::RenderWindow *window) {
   timerHeaderText->draw(window);
 }
 
-void OperationState::update(const sf::Time &time) {
+void OperationState::update() {
   timer += global->getElapsedTime();
-  toolSelect->update(time);
-  patient->update(time);
-  vitals->update(time);
-  score->update(time);
+  toolSelect->update();
+  patient->update();
+  vitals->update();
+  score->update();
 }
 
 void OperationState::draw(sf::RenderWindow *window) {

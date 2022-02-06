@@ -24,7 +24,7 @@ class SmallCutState: public CommonEnemyState {
     bool isDead() { return hp <= 0; }
     void interactGelRipple(Ripple *ripple);
 
-    void update(const sf::Time &t) {}
+    void update() {}
     void draw(sf::RenderWindow *w);
 };
 

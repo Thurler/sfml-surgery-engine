@@ -14,7 +14,7 @@ void ScalpelToolState::processScalpel() {
   rawLineObject->addPoint();
 }
 
-void ScalpelToolState::update(const sf::Time &t, bool active) {
+void ScalpelToolState::update(bool active) {
   if (!active) return;
   bool isMouseActive = global->getMouseActive();
   if (lastMouseActive && isMouseActive) {

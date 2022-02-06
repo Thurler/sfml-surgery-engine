@@ -20,7 +20,7 @@ class FreeFormLineObject: public CommonObject {
     void addPointTwice();
     void replacePoint();
     void replaceAndAddDuplicate();
-    void update(const sf::Time &t) {}
+    void update() {}
     void draw(sf::RenderWindow *w);
 };
 

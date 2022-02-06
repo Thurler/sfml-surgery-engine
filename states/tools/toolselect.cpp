@@ -14,7 +14,7 @@
 
 const sf::Vector2i ToolSelectState::toolPosition = sf::Vector2i(70, 630);
 
-void ToolSelectState::update(const sf::Time &time) {
+void ToolSelectState::update() {
   // handle tool wheel input
   bool isKeyUp = global->getKeyUp();
   bool isKeyDown = global->getKeyDown();
@@ -77,7 +77,7 @@ void ToolSelectState::update(const sf::Time &time) {
   // handle specific tool updates
   for (unsigned int i = 0; i < toolCount; i++) {
     bool isCurrent = (tools[i] == currentTool);
-    tools[i]->update(time, isCurrent);
+    tools[i]->update(isCurrent);
   }
 
 }

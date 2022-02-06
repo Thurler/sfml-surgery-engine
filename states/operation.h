@@ -29,7 +29,7 @@ class OperationState: public CommonState {
     OperationState(GlobalValues *g);
     ~OperationState();
 
-    void update(const sf::Time &t);
+    void update();
     void draw(sf::RenderWindow *w);
 };
 

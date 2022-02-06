@@ -4,7 +4,7 @@ unsigned int Ripple::effectiveRadius() {
   return radius + std::min(1.0, timer/expansion)*growthRadius;
 }
 
-void Ripple::update(const sf::Time &time) {
+void Ripple::update() {
   timer += global->getElapsedTime();
   if (timer > duration) {
     expired = true;

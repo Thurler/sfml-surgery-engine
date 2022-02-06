@@ -88,10 +88,10 @@ int main() {
     }
 
     // Update states and objects
-    operationState->update(time);
-    pointer->update(time);
-    mouseDebug->update(time);
-    fpsDebug->update(time);
+    operationState->update();
+    pointer->update();
+    mouseDebug->update();
+    fpsDebug->update();
 
     // Render view
     operationState->draw(&window);

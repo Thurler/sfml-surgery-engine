@@ -1,6 +1,6 @@
 #include "pointer.h"
 
-void PointerObject::update(const sf::Time &time) {
+void PointerObject::update() {
   position = global->getMousePos();
 }
 

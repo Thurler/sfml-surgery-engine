@@ -21,7 +21,7 @@ class ScoreState: public CommonState {
     ScoreState(GlobalValues *g);
     ~ScoreState();
 
-    void update(const sf::Time &t);
+    void update();
     void draw(sf::RenderWindow *w);
     void receiveScore(unsigned long s) { pendingScore += s; }
 };

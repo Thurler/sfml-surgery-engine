@@ -30,14 +30,14 @@ class GelToolState: public CommonToolState {
     double timer = 0;
 
     void initRipple(bool small);
-    void updateRipples(const sf::Time &t);
+    void updateRipples();
 
   public:
     GelToolState(GlobalValues *g, CommonPatientState *p) : CommonToolState(g, p) {}
     ~GelToolState();
 
     void deselect();
-    void update(const sf::Time &t, bool active);
+    void update(bool active);
     void draw(sf::RenderWindow *w, bool active);
 };
 

@@ -7,7 +7,7 @@
 
 class FPSTextObject: public TextObject {
   private:
-    static constexpr unsigned int limit = 30;
+    static constexpr unsigned int limit = 60;
     unsigned int lastValues[limit] = {0};
     unsigned int index = 0;
   public:
@@ -15,7 +15,7 @@ class FPSTextObject: public TextObject {
       TextObject(g, sf::Vector2i(1275, 700), sf::Color::White, 10) {}
     ~FPSTextObject() {}
 
-    void update(const sf::Time &t);
+    void update();
 };
 
 #endif

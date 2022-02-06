@@ -18,7 +18,7 @@ class TestPatientState: public CommonPatientState {
     TestPatientState(GlobalValues *g, VitalsState *v, ScoreState *s);
     ~TestPatientState();
 
-    void update(const sf::Time &t);
+    void update();
     void draw(sf::RenderWindow *w);
 
     void interactGel(const std::vector<Ripple *> &ripples, double healed);

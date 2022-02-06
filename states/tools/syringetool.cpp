@@ -20,7 +20,7 @@ void SyringeToolState::stopSyringe() {
   drawTube = false;
 }
 
-void SyringeToolState::processSyringe(const sf::Time &time) {
+void SyringeToolState::processSyringe() {
   if (filling || filled > 0) {
     // keep cursor locked in place
     global->setMousePos(lockedPosition);
@@ -41,12 +41,12 @@ void SyringeToolState::processSyringe(const sf::Time &time) {
   }
 }
 
-void SyringeToolState::update(const sf::Time &time, bool active) {
+void SyringeToolState::update(bool active) {
   if (!active) return;
   bool isMouseActive = global->getMouseActive();
   if (lastMouseActive && isMouseActive) {
     // mouse is still active
-    processSyringe(time);
+    processSyringe();
   } else if (lastMouseActive) {
     // mouse is no longer active
     stopSyringe();

@@ -3,7 +3,7 @@
 void LaserToolState::processLaser() {
 }
 
-void LaserToolState::update(const sf::Time &t, bool active) {
+void LaserToolState::update(bool active) {
   processLaser();
 }
 

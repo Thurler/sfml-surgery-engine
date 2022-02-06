@@ -11,7 +11,7 @@ class MouseTextObject: public TextObject {
       TextObject(g, sf::Vector2i(1275, 715), sf::Color::White, 10) {}
     ~MouseTextObject() {}
 
-    void update(const sf::Time &t);
+    void update();
 };
 
 #endif

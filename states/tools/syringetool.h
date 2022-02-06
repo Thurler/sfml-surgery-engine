@@ -24,7 +24,7 @@ class SyringeToolState: public CommonToolState {
 
     void initSyringe();
     void stopSyringe();
-    void processSyringe(const sf::Time &time);
+    void processSyringe();
     void drawTubePositions(sf::VertexArray &tube);
 
   public:
@@ -32,7 +32,7 @@ class SyringeToolState: public CommonToolState {
     ~SyringeToolState();
 
     void deselect();
-    void update(const sf::Time &t, bool active);
+    void update(bool active);
     void draw(sf::RenderWindow *w, bool active);
 };
 

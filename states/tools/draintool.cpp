@@ -3,7 +3,7 @@
 void DrainToolState::processDrain() {
 }
 
-void DrainToolState::update(const sf::Time &time, bool active) {
+void DrainToolState::update(bool active) {
   processDrain();
 }
 
