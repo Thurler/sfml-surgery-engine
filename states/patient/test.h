@@ -8,7 +8,7 @@
 
 class TestPatientState: public CommonPatientState {
   private:
-    static constexpr unsigned int smallCutCount = 3;
+    static constexpr unsigned int smallCutCount = 6;
     static const sf::Vector2i smallCutsPositions[smallCutCount];
     static const double smallCutsAngles[smallCutCount];
 

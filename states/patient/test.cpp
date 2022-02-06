@@ -4,11 +4,21 @@
 #include "math.h"
 
 const sf::Vector2i TestPatientState::smallCutsPositions[smallCutCount] = {
-  sf::Vector2i(100, 200), sf::Vector2i(200, 400), sf::Vector2i(500, 300)
+  sf::Vector2i(100, 200),
+  sf::Vector2i(200, 400),
+  sf::Vector2i(500, 300),
+  sf::Vector2i(400, 200),
+  sf::Vector2i(600, 500),
+  sf::Vector2i(300, 300),
 };
 
 const double TestPatientState::smallCutsAngles[smallCutCount] = {
-  0, M_PI / 2, M_PI / 4
+  0,
+  M_PI / 2,
+  M_PI / 4,
+  M_PI / 3,
+  M_PI / 12,
+  M_PI,
 };
 
 void TestPatientState::interactStabilizer(double healed) {
