@@ -1,12 +1,5 @@
 # Code Organization
 
-todo: decouple immediate/permanent damage
-todo: decouple damage/heal from framerate
-todo: decouple tool select input from framerate
-todo: decouple healing touch input from framerate
-todo: decouple scalpel input from framerate
-todo: decouple suture input from framerate
-
 ```
 |- 1. main.cpp
 |- 2. global.h
@@ -144,7 +137,7 @@ A state that stores the current operation's score, responsible for updating it w
 
 ### 4.3 - Vitals State
 
-A state that stores the current operation's vitals, responsible for updating it whenever an event that restores vitals or deals damage is triggered. Two separate vital counters are stored, one that caps at 99 and another with an arbitrary cap up to 500, that cannot be healed and only decremented.
+A state that stores the current operation's vitals, responsible for updating it whenever an event that restores vitals or deals damage is triggered. Two separate vital counters are stored, one that caps at 99 and another with an arbitrary cap up to 400, that cannot be healed and only decremented.
 
 Damage in the immediate gauge is dealt and healed in increments, to create a "rolling" effect. Whenever the immediate gauge reaches 0, a game over state should be signaled.
 
@@ -233,7 +226,7 @@ The ultrasound tool uses ripples to interact with hidden objects, with a set coo
 
 ### 6.1 - Common Enemy State
 
-A basic class that extends the functionality of a state to that of an enemy. Since enemies are very diverse, there really isn't anything right now in common between all enemies, but the groundwork is in place if needed.
+A basic class that extends the functionality of a state to that of an enemy. Since enemies are very diverse, there really isn't much common between all enemies, currently only the passive damage is applied. A virtual function is used to get how much (permanent) damage per second the enemy should do, and it's applied inside the common's implementation of an apply damage method.
 
 ### 6.2 - Small Cut Enemy State
 
