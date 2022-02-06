@@ -7,9 +7,11 @@
 
 class SmallCutState: public CommonEnemyState {
   private:
-    static constexpr double damagePerSec = 0.75;
     static constexpr double timeToHeal = 0.1;
     static constexpr double maxHP = 100;
+
+    double damagePerSec() { return 0.1; }
+    double permDamagePerSec() { return 0.02; }
 
     SmallCut *cut = NULL;
     double hp = 100;

@@ -19,17 +19,19 @@ class VitalsState: public CommonState {
     static constexpr unsigned int barHeight = 25;
     static constexpr unsigned int fullBarWidth = 110;
     static constexpr unsigned int fullBarHeight = 15;
-    static constexpr unsigned int maxChangePerSecond = 40;
+    static constexpr unsigned int maxChangePerSecond = 30;
 
     double startingFull;
     double currentFull;
     double gaugeMax;
     double current;
+    double accumulatedPermDamage = 0;
     double accumulatedDamage = 0;
     double accumulatedHeal = 0;
     TextObject *currentText = NULL;
     TextObject *currentFullText = NULL;
 
+    void applyPermDamage(double amount);
     void applyDamage(double amount);
     void applyHeal(double amount);
     void drawCurrent(sf::RenderWindow *w);
@@ -43,6 +45,7 @@ class VitalsState: public CommonState {
     void update(const sf::Time &t);
     void draw(sf::RenderWindow *w);
     void receiveDamage(double damage) { accumulatedDamage += damage; }
+    void receivePermDamage(double damage) { accumulatedPermDamage += damage; }
     void receiveHeal(double heal) { accumulatedHeal += heal; }
 };
 

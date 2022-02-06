@@ -10,20 +10,30 @@ const sf::Color VitalsState::warningColor = sf::Color(200, 200, 0, 255);
 const sf::Color VitalsState::dangerColor = sf::Color(200, 0, 0, 255);
 
 void VitalsState::applyDamage(double damage) {
-  currentFull -= damage;
-  if (currentFull < 0) {
-    currentFull = 0;
-  }
   current -= damage;
   if (current < 0) {
     current = 0;
   }
-  if (currentFull < gaugeMax) {
-    gaugeMax = currentFull;
-  }
   accumulatedDamage -= damage;
   if (accumulatedDamage < 0) {
     accumulatedDamage = 0;
+  }
+}
+
+void VitalsState::applyPermDamage(double damage) {
+  currentFull -= damage;
+  if (currentFull < 0) {
+    currentFull = 0;
+  }
+  if (currentFull < gaugeMax) {
+    gaugeMax = currentFull;
+  }
+  if (currentFull < current) {
+    current = currentFull;
+  }
+  accumulatedPermDamage -= damage;
+  if (accumulatedPermDamage < 0) {
+    accumulatedPermDamage = 0;
   }
 }
 
@@ -40,11 +50,13 @@ void VitalsState::applyHeal(double heal) {
 
 void VitalsState::update(const sf::Time &time) {
   double elapsed = global->getElapsedTime();
-  // For now, passively subtract 1 vital every 0.5 seconds
-  double damage = elapsed*2;
-  // receiveDamage(damage);
   // Check accumulated damage - apply damage/heal as necessary
   double limit = elapsed*maxChangePerSecond;
+  if (accumulatedPermDamage > limit) {
+    applyPermDamage(limit);
+  } else if (accumulatedPermDamage > 0) {
+    applyPermDamage(accumulatedPermDamage);
+  }
   if (accumulatedDamage > limit) {
     applyDamage(limit);
   } else if (accumulatedDamage > 0) {
