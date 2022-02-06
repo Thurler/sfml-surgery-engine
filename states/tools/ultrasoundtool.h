@@ -9,7 +9,7 @@
 
 class UltrasoundToolState: public CommonToolState {
   private:
-    static constexpr double cooldown = 0.5;
+    static constexpr double cooldown = 0.4;
     std::vector<Ripple *> ripples;
     bool lastMouseActive = false;
     double timer = 0;

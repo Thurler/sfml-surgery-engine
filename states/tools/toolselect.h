@@ -7,7 +7,17 @@
 #include "../vitals.h"
 #include "commontool.h"
 
-enum Tool { Suture = 0, Drain, Laser, Ultrasound, Scalpel, Forceps, Gel, Syringe, HealingTouch };
+enum Tool {
+    Suture = 0,
+    Drain,
+    Laser,
+    Ultrasound,
+    Scalpel,
+    Forceps,
+    Gel,
+    Syringe,
+    HealingTouch
+};
 
 class ToolSelectState: public CommonState {
   private:

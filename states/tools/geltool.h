@@ -20,7 +20,7 @@ class GelProperties: public RippleProperties {
 class GelToolState: public CommonToolState {
   private:
     static constexpr double cooldown = 0.1;
-    static constexpr double cooldownSmall = 0.015;
+    static constexpr double cooldownSmall = 0.01653;
     static constexpr double duration = 1.5;
     static constexpr unsigned int radius = 20;
     static constexpr double fullHeal = 0.2;

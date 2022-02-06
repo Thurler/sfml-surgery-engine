@@ -6,7 +6,7 @@ void GelToolState::initRipple(bool small) {
   GelProperties *properties = new GelProperties(small);
   if (small) {
     ripple = new Ripple(
-      global, center, sf::Color(0, 255, 0, 64), duration, 0.5, radius - 10,
+      global, center, sf::Color(0, 255, 0, 64), duration, 0.5, radius / 2,
       radius, properties
     );
     timerSmall = cooldownSmall;
