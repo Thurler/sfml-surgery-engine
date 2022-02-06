@@ -1,5 +1,12 @@
 # Code Organization
 
+todo: decouple immediate/permanent damage
+todo: decouple damage/heal from framerate
+todo: decouple tool select input from framerate
+todo: decouple healing touch input from framerate
+todo: decouple scalpel input from framerate
+todo: decouple suture input from framerate
+
 ```
 |- 1. main.cpp
 |- 2. global.h
@@ -128,30 +135,116 @@ By taking the distance between the ripple's center and each point A and B, we ca
 ## 4 - States (Globals)
 
 ### 4.1 - Common State
+
+A basic class that extends the functionality of an object to that of a state. Since states are very diverse, there really isn't anything right now in common between all states, but the groundwork is in place if needed.
+
 ### 4.2 - Score State
+
+A state that stores the current operation's score, responsible for updating it whenever an event that gives points is triggered. Instead of just applying the pending score directly, we apply it in increments of 9 to maximize the perceived effect of the score gain.
+
 ### 4.3 - Vitals State
+
+A state that stores the current operation's vitals, responsible for updating it whenever an event that restores vitals or deals damage is triggered. Two separate vital counters are stored, one that caps at 99 and another with an arbitrary cap up to 500, that cannot be healed and only decremented.
+
+Damage in the immediate gauge is dealt and healed in increments, to create a "rolling" effect. Whenever the immediate gauge reaches 0, a game over state should be signaled.
+
+Damage in the permanent gauge happens in increments along with the immediate one, and should the permanent value drop below 99, it should drag down the immediate's cap with it, so that the immediate gauge cannot heal past the permanent one.
+
+Gauges should be colored yellow whenever they reach the 50% threshold, and red whenever the 25% threshold is reached.
+
 ### 4.4 - Operation State
+
+A state that holds information regarding the "operation" play state. It holds pointers to the vital and score states, as well to the current patient's state and the tool selection's state. It can also display a timer and score counter in the corner, to inform the player of the gameplay state.
+
+Since it merely acts as hub for other states to interact with themselves, this state does little more than just hold all the relevant information.
 
 ## 5 - States (Tools)
 
-### 5.1 - Common Tool State
-### 5.2 - Tool Select Tool State
+### 5.1 - Tool Select Tool State
+
+The tool selection state is responsible for initializing and holding a pointer to every tool used in the game, and storing what the current tool being used is. It is also responsible for drawing the tool selection wheel, highlighting the current tool for the player.
+
+During the update loop, it checks for pressed keys, and checks against the keys pressed on the last frame. Whenever a key is pressed, but it wasn't pressed in the previous frame, it will trigger a tool swap to that corresponding tool. Special buffers are in place for the diagonal inputs, to avoid deselecting them
+whenever the player lets go of the diagonal without full sync between fingers.
+
+Also during the update loop, it should update each tool state on whether they are the currently active tool, making sure to call the replaced tool's deselect function whenever a switch occurs, to make sure the tool's state is reset properly.
+
+### 5.2 - Common Tool State
+
+The common tool state expands upon the common state, adding abstract update and draw functions that take in a special argument - whether the tool is the active one or not. Since the active tool can change every other frame, tools need to be aware when they are no longer the active tool.
+
+The deselect function signals to the tool that it is no longer active, resetting its internal state back to an inactive state.
+
 ### 5.3 - Drain Tool State
+
+The drain tool currently does nothing, except for draw a rectangular tube from the cursor to the top of the screen, signaling to the player where the drain is active at.
+
 ### 5.4 - Forceps Tool State
+
+The forceps tool currently does nothing.
+
 ### 5.5 - Gel Tool State
+
+The gel tool uses the ripple object to define a circular area around the cursor to be affected by gel, whenever the tool is active. There are major and minor ripples, each with a specific timing and spatial requirement to be spawned, and with different properties.
+
+Major ripples are spawned every 0.1 seconds (6 frames) the tool is active, and minor ripples every 0.01653 seconds (1 frame). The key being, minor ripples are only spawned if the cursor has moved a specific distance away from the previous ripple's center. Both sizes last for the same amount of time, but major ripples have double radius compared to a minor one. Only major ripples will have a healing effect on the patient, one ripple healing 0.2 vitals over its duration.
+
+When updating the ripples, the tool state must also call for the destruction of any expired ripples, freeing up memory in the process. Very important: the ripples are still active when the tool itself is inactive, and must still be drawn until they are expired.
+
 ### 5.6 - Healingtouch Tool State
+
+The healing touch tool uses the freeformline object to draw shapes on the screen. The target is a star, but the player is free to draw whatever they like. The tool stores whether it was active in the last frame, and whether it is active now, to know whether it needs to init, process or destroy the current structure.
+
+Initializing the structure will place a pivot wherever the player was pointing at when they clicked. Processing will then happen every other frame, and destroying just zeroes out the pivots.
+
+When processing the new position input, we first wait for the cursor to be sufficiently away from our first base pivot point. When it is, we compute and store a vector from the first pivot to this new position. This will be our current iteration's pivot vector.
+
+After computing the first pivot vector, we wait until the cursor is sufficiently far away from this vector's edge, and whenever it is, we lock in a new vector connecting the tip of your current pivot with the current cursor position.
+
+If the angle between the two vectors is sufficiently large, we lock in our current position as our next pivot point for the freeformline object, and restart the algorithm using this new pivot as our base.
+
+Otherwise, we simply discard the old vector pivot we had, and use our newly computed vector as our pivot. The process will then continue until there is a sudden enough change in the angle between computed pivots.
+
 ### 5.7 - Laser Tool State
+
+The laser tool currently does nothing, except for draw an angled rectangular shape from the cursor to the top of the screen, signaling to the player where the laser is active at.
+
 ### 5.8 - Scalpel Tool State
+
+The scalpel tool uses the freeformline object to trace the user's raw inputs on the screen, signaling to the player where the scalpel has been active. We simply add a new point to the object every frame.
+
 ### 5.9 - Suture Tool State
+
+The suture tool acts much like the healing touch tool in terms of taking the user's input and drawing lines on the screen, taking vector pivots and looking for sudden angle changes. It will also draw for the player the raw input being received, as a small visual aid. While the algorithm is the same, the parameters are ever so slightly different, since the target shape is a zigzag rather than a star.
+
 ### 5.10 - Syringe Tool State
+
+The syringe tool has three states it can be in, each with different update and draw properties. The trivial one is when it is the active tool, but with no player input - it just displays the available vials.
+
+Whenever the player clicks one of the vials, the syringe must fill up with whatever is in that vial, so we store how much of it and what it is. The time it takes to fully fill is fixed, and the mouse cursos cannot be updated while the player is drawing liquid from the vial.
+
+If the click was outside the boundaries of all vials, then the syringe will empty itself over time, interacting with whatever is under the cursor. The basic case is stabilizer, which will raise vitals wherever it was injected. Similarly, the mouse cursor cannot be updated while the injection is going on.
+
 ### 5.11 - Ultrasound Tool State
+
+The ultrasound tool uses ripples to interact with hidden objects, with a set cooldown between spawns of each ripple. This way, mashing the click button will not spawn multiple ripples. Similarly to the gel tool, this class is responsible for managing the ripples it spawns, destroying them when they have expired.
 
 ## 6 - States (Enemies)
 
 ### 6.1 - Common Enemy State
+
+A basic class that extends the functionality of a state to that of an enemy. Since enemies are very diverse, there really isn't anything right now in common between all enemies, but the groundwork is in place if needed.
+
 ### 6.2 - Small Cut Enemy State
+
+The small cut enemy state is the enemy abstraction of the object small cut, storing its properties that relate to the state, rather than the object itself. These include the HP and damage calculations, as well as handling gel interactions. The damage it takes from a gel's interactions depends on the fraction of the cut that is covered by the gel ripple.
 
 ## 7 - States (Patients)
 
 ### 7.1 - Common Patient State
+
+Patient states specialize from common states by adding callbacks to tool interactions. The state is aware of the enemies on screen, and must know how to handle the tool interactions with each enemy. It stores and handles interactions with the vital and score states, too.
+
 ### 7.2 - Test Patient State
+
+The test patient is the one used to test out various interactions between scenarios, and handles various interactions with the basic tools. Really it's just something simple to test out the code in.
