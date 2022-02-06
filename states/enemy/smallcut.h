@@ -12,6 +12,7 @@ class SmallCutState: public CommonEnemyState {
 
     double damagePerSec() { return 0.1; }
     double permDamagePerSec() { return 0.02; }
+    double scoreValue() { return 50; }
 
     SmallCut *cut = NULL;
     double hp = 100;

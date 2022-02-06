@@ -226,7 +226,7 @@ The ultrasound tool uses ripples to interact with hidden objects, with a set coo
 
 ### 6.1 - Common Enemy State
 
-A basic class that extends the functionality of a state to that of an enemy. Since enemies are very diverse, there really isn't much common between all enemies, currently only the passive damage is applied. A virtual function is used to get how much (permanent) damage per second the enemy should do, and it's applied inside the common's implementation of an apply damage method.
+A basic class that extends the functionality of a state to that of an enemy. Since enemies are very diverse, there really isn't much common between all enemies, currently only the passive damage and score are applied. A virtual function is used to get how much (permanent) damage per second the enemy should do, and it's applied inside the common's implementation of an apply damage method. A similar flow is used to apply score.
 
 ### 6.2 - Small Cut Enemy State
 

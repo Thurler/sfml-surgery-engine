@@ -42,9 +42,9 @@ void TestPatientState::update(const sf::Time &time) {
   for (unsigned int i = 0; i < smallCutCount; i++) {
     if (smallCuts[i] == NULL) continue;
     if (smallCuts[i]->isDead()) {
+      smallCuts[i]->applyScore(score);
       delete smallCuts[i];
       smallCuts[i] = NULL;
-      score->receiveScore(100);
       continue;
     }
     smallCuts[i]->applyDamage(vitals);

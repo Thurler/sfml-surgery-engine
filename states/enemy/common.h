@@ -3,6 +3,7 @@
 
 #include "../common.h"
 #include "../vitals.h"
+#include "../score.h"
 
 class CommonEnemyState: public CommonState {
   protected:
@@ -10,11 +11,13 @@ class CommonEnemyState: public CommonState {
 
     virtual double damagePerSec() { return 0; }
     virtual double permDamagePerSec() { return 0; }
+    virtual double scoreValue() { return 0; }
 
   public:
     virtual ~CommonEnemyState() {}
 
     virtual void applyDamage(VitalsState *v);
+    void applyScore(ScoreState *s) { s->receiveScore(scoreValue()); }
 };
 
 #endif
