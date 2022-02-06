@@ -3,7 +3,7 @@
 void SmallCutState::interactGelRipple(Ripple *ripple) {
   double elapsed = global->getElapsedTime();
   double collision = cut->collide(ripple);
-  hp -= maxHP*collision*elapsed/timeToHeal;
+  hp -= maxHP * collision * (elapsed / timeToHeal);
 }
 
 void SmallCutState::draw(sf::RenderWindow *window) {

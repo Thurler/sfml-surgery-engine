@@ -51,7 +51,7 @@ void VitalsState::applyHeal(double heal) {
 void VitalsState::update(const sf::Time &time) {
   double elapsed = global->getElapsedTime();
   // Check accumulated damage - apply damage/heal as necessary
-  double limit = elapsed*maxChangePerSecond;
+  double limit = elapsed * maxChangePerSecond;
   if (accumulatedPermDamage > limit) {
     applyPermDamage(limit);
   } else if (accumulatedPermDamage > 0) {
