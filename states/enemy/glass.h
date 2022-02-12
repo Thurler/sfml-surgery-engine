@@ -6,21 +6,28 @@
 
 class GlassShardState: public CommonEnemyState {
   private:
-    ScoreGrade grade = ScoreGrade::Bad;
-    unsigned int scores[3] = {30, 70, 110};
+    double flatDamage() { return 5; }
+    double flatPermDamage() { return 1; }
     unsigned int scoreValue() { return scores[grade]; }
 
+    bool dropped = false;
+    bool removed = false;
+    bool disposed = false;
+    unsigned int dropCount = 0;
     GlassShard *shard;
     sf::Vector2i offset;
+    ScoreGrade grade = ScoreGrade::Cool;
+    unsigned int scores[3] = {30, 70, 110};
 
   public:
     GlassShardState(GlobalValues *g, const sf::Vector2i &p, double a);
     ~GlassShardState();
 
-    bool isDisposed();
+    bool checkAndResetDropped();
+    bool isDisposed() { return disposed; }
     bool grabForceps(const sf::Vector2i &p);
-    void updateForceps(const sf::Vector2i &p);
-    void releaseForceps();
+    bool updateForceps(const sf::Vector2i &p);
+    void releaseForceps(bool tray);
 
     void update() {}
     void draw(sf::RenderWindow *w);

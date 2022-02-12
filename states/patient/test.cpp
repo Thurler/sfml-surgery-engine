@@ -59,6 +59,17 @@ void TestPatientState::update() {
       continue;
     }
     smallCuts[i]->applyDamage(vitals);
+    if (glassShards[i] == NULL) continue;
+    if (glassShards[i]->isDisposed()) {
+      glassShards[i]->applyScore(score);
+      delete glassShards[i];
+      glassShards[i] = NULL;
+      smallCuts[i]->removeAppended();
+      continue;
+    }
+    if (glassShards[i]->checkAndResetDropped()) {
+      glassShards[i]->applyFlatDamage(vitals);
+    }
   }
 }
 

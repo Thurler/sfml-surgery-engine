@@ -23,6 +23,47 @@ bool GlassShard::checkCollision(const sf::Vector2i &target) {
   return (scalarH >= 0 && scalarH <= width && scalarV >= 0 && scalarV <= effectiveHeight);
 }
 
+bool GlassShard::checkMistake() {
+  if (removed) return false;
+  float effectiveHeight = getEffectiveHeight();
+  if (effectiveHeight < (height / 6)) return true;
+
+  sf::Vector2f p = position + ((-unit) * effectiveHeight);
+  sf::Vector2f pivot = sf::Vector2f(p.x - positionA.x, p.y - positionA.y);
+  double angle = getAngle(unitCut, pivot);
+  if (angle > M_PI / 2) return true;
+
+  p += (unitCut * width);
+  pivot = sf::Vector2f(positionB.x - p.x, positionB.y - p.y);
+  angle = getAngle(unitCut, pivot);
+  if (angle > M_PI / 2) return true;
+
+  return false;
+}
+
+bool GlassShard::checkRemoved() {
+  if (removed) return true;
+  float effectiveHeight = getEffectiveHeight();
+  return effectiveHeight >= height;
+}
+
+double GlassShard::getExitAngleFactor() {
+  // Compute pivot points
+  sf::Vector2f perfectPoint = basePosition + (unit * height / 3.0f);
+  sf::Vector2f maxLateralPoint = basePosition + (unitCut * offset);
+
+  // Compute perfect and worst vectors - max angle
+  sf::Vector2f perfect = perfectPoint - basePosition;
+  sf::Vector2f worst = perfectPoint - maxLateralPoint;
+  double maxAngle = getAngle(perfect, worst);
+
+  // Compute current vector - current angle
+  sf::Vector2f current = position - basePosition;
+  double currentAngle = getAngle(perfect, current);
+
+  return currentAngle/maxAngle;
+}
+
 void GlassShard::draw(sf::RenderWindow *window) {
   sf::ConvexShape shard;
   shard.setPointCount(4);
@@ -48,8 +89,8 @@ GlassShard::GlassShard(
   unit = unitAtAngle(angle - (M_PI / 2));
   positionA = sf::Vector2f(pos.x, pos.y);
   positionB = positionA + (unitCut * SmallCut::length);
-  float offset = (SmallCut::length - width) / 2.0f;
+  offset = (SmallCut::length - width) / 2.0f;
   position = positionA + (unitCut * offset);
-  position += (unit * height / 2.0f);
+  position += (unit * height / 1.5f);
   basePosition = position;
 }

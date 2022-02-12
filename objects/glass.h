@@ -7,8 +7,8 @@
 
 class GlassShard: public CommonObject {
   private:
-    static constexpr float width = 30;
-    static constexpr float height = 60;
+    static constexpr float width = 25;
+    static constexpr float height = 50;
 
     bool removed = false;
     sf::Vector2f basePosition;  // top left corner
@@ -17,6 +17,7 @@ class GlassShard: public CommonObject {
     sf::Vector2f positionB;
     sf::Vector2f unit;
     sf::Vector2f unitCut;
+    float offset;
 
     float getEffectiveHeight();
 
@@ -29,6 +30,9 @@ class GlassShard: public CommonObject {
     void resetPosition() { position = basePosition; }
     void setPosition(const sf::Vector2i &p) { position = sf::Vector2f(p.x, p.y); }
     bool checkCollision(const sf::Vector2i &p);
+    bool checkMistake();
+    bool checkRemoved();
+    double getExitAngleFactor();
 
     void update() {}
     void draw(sf::RenderWindow *w);

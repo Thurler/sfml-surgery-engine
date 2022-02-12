@@ -25,6 +25,7 @@ class SmallCutState: public CommonEnemyState {
     ~SmallCutState();
 
     bool isDead() { return hp <= 0; }
+    void removeAppended() { appended = NULL; }
     void interactGelRipple(Ripple *ripple);
 
     void update() {}

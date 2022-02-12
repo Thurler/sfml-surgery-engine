@@ -12,6 +12,7 @@
 |  |- 6. freeformline
 |  |- 7. ripple
 |  |- 8. smallcut
+|  |- 9. glassshard
 |- 4. states (globals)
 |  |- 1. common
 |  |- 2. score
@@ -32,6 +33,7 @@
 |- 6. states (enemies)
 |  |- 1. common
 |  |- 2. smallcut
+|  |- 3. glassshard
 |- 7. states (patients)
 |  |- 1. common
 |  |- 2. test
@@ -134,6 +136,10 @@ In order to give it the illusion of being lodged in, we need to stop drawing the
 
 Its interaction with the forceps is simply a check if the forceps point lies within the boundaries of the effective rectangle that is protruding outside the wound. We use a simple scalar projection algorithm to check for that, where the projection of that point on 2 adjacent sides of the rectangle must be within the effective width and height.
 
+When being pulled out with the removed flag still on false, it will check for any mistakes whenever its position is corrected. A mistake happens when it is pushed further inside the wound, crossing an effective height threshold, or when the lateral displacement is enough to push the shard into the wound's borders. To check for this, we just compute on which side of the wound each edtge of the shard is. If any side is outside the boundaries, a mistake is triggered.
+
+After being extracted, right before setting the removed flag to true, we must compute the exit angle factor, in order to properly compute score. The factor is a number [0, 1], where 0 is a perfectly vertical extraction, with no lateral displacement, and 1 is the worst possible extraction that didn't cause a miss, with max lateral displacement. We compute the positions for each of these scenarios, and then take the current position to score it according to these limits in a linear fashion.
+
 ## 4 - States (Globals)
 
 ### 4.1 - Common State
@@ -183,7 +189,11 @@ The drain tool currently does nothing, except for draw a rectangular tube from t
 
 ### 5.4 - Forceps Tool State
 
-The forceps tool simply checks for collisions against grabbable objects in the patient at the current position, and stores the object it collides with, if any. Every frame, if it is holding something, the forceps tool will update that object's position, which might trigger events in that object. Once the forceps lets go of that object, it will fire an event to that object informing it was released, and go back to holding nothing. Whenever the forceps stops being the active tool, it will automatically drop anything it is holding.
+The forceps tool simply checks for collisions against grabbable objects in the patient at the current position, and stores the enemy it collides with, if any. Every frame, if it is holding something, the forceps tool will update that enemy's position, which might trigger events in that enemy. Once the forceps lets go of that enemy, it will fire an event to that enemy informing it was released, and go back to holding nothing. Whenever the forceps stops being the active tool, it will automatically drop anything it is holding.
+
+While holding an enemy, it will ask that enemy if its current position should result in a mistake or not. In case it should be a mistake, the forceps will automatically let go of that enemy and trigger its release event.
+
+The forceps tool is also responsible for drawing the dispatch tray on the right side of the screen, whenever it is the active tool and it is holding something that is extractable. Whenever we drop an enemy, we must inform that enemy wether it is being dropped into the tray or not, so a simple ellipse boundary check is performed whenever something is being dropped.
 
 ### 5.5 - Gel Tool State
 
@@ -235,7 +245,7 @@ The ultrasound tool uses ripples to interact with hidden objects, with a set coo
 
 ### 6.1 - Common Enemy State
 
-A basic class that extends the functionality of a state to that of an enemy. Since enemies are very diverse, there really isn't much common between all enemies, currently only the passive damage and score are applied. A virtual function is used to get how much (permanent) damage per second the enemy should do, and it's applied inside the common's implementation of an apply damage method. A similar flow is used to apply score.
+A basic class that extends the functionality of a state to that of an enemy. Since enemies are very diverse, there really isn't much common between all enemies, currently only passive damage, flat damage and score are applied. A virtual function is used to get how much (permanent) damage per second / flat the enemy should do, and it's applied inside the common's implementation of an apply damage method. A similar flow is used to apply score.
 
 ### 6.2 - Small Cut Enemy State
 
@@ -246,6 +256,8 @@ Optionally, the small cut can be associated with another enemy, assumed to be lo
 ### 6.3 - Glass Shard Enemy State
 
 The glass shard enemy state is the enemy abstraction of the object glass shard, storing state properties, rather than object properties. This includes score control, what action will be taken when it is dropped, and storing the offset it was grabbed with, to preserve that offset when it is being moved around.
+
+Upon dropping the glass shard outside the tray, or when triggering a mistake during the extraction, the max score achievable will drop from COOL to GOOD, and then from GOOD to BAD. When it is removed, the current score will be set according to the max achievable score stored and the exit angle factor, according to specific angle thresholds.
 
 ## 7 - States (Patients)
 

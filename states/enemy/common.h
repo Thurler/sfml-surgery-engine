@@ -15,6 +15,8 @@ class CommonEnemyState: public CommonState {
   protected:
     CommonEnemyState(GlobalValues *g) : CommonState(g) {}
 
+    virtual double flatDamage() { return 0; }
+    virtual double flatPermDamage() { return 0; }
     virtual double damagePerSec() { return 0; }
     virtual double permDamagePerSec() { return 0; }
     virtual unsigned int scoreValue() { return 0; }
@@ -22,8 +24,9 @@ class CommonEnemyState: public CommonState {
   public:
     virtual ~CommonEnemyState() {}
 
-    virtual void updateForceps(const sf::Vector2i &p) {}
-    virtual void releaseForceps() {}
+    virtual bool updateForceps(const sf::Vector2i &p) { return false; }
+    virtual void releaseForceps(bool tray) {}
+    virtual void applyFlatDamage(VitalsState *v);
     virtual void applyDamage(VitalsState *v);
     void applyScore(ScoreState *s) { s->receiveScore(scoreValue()); }
 };

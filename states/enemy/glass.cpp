@@ -1,7 +1,16 @@
 #include "glass.h"
 
-bool GlassShardState::isDisposed() {
-  return false;
+bool GlassShardState::checkAndResetDropped() {
+  if (!dropped) return false;
+  dropped = false;
+  // drop max score the more it has been dropped
+  dropCount = std::min(dropCount+1, (unsigned int)2);
+  if (dropCount > 1) {
+    grade = ScoreGrade::Bad;
+  } else if (dropCount > 0) {
+    grade = ScoreGrade::Good;
+  }
+  return true;
 }
 
 bool GlassShardState::grabForceps(const sf::Vector2i &position) {
@@ -12,13 +21,31 @@ bool GlassShardState::grabForceps(const sf::Vector2i &position) {
   return collided;
 }
 
-void GlassShardState::updateForceps(const sf::Vector2i &position) {
+bool GlassShardState::updateForceps(const sf::Vector2i &position) {
   shard->setPosition(position - offset);
+  if (shard->checkMistake()) return false;
+  if (!removed && shard->checkRemoved()) {
+    shard->setRemoved(true);
+    double angleFactor = shard->getExitAngleFactor();
+    if (angleFactor > 0.9 && grade > ScoreGrade::Bad) {
+      grade = ScoreGrade::Bad;
+    } else if (angleFactor > 0.75 && grade > ScoreGrade::Good) {
+      grade = ScoreGrade::Good;
+    }
+    removed = true;
+  }
+  return true;
 }
 
-void GlassShardState::releaseForceps() {
+void GlassShardState::releaseForceps(bool tray) {
+  if (tray) {
+    disposed = true;
+    return;
+  }
   shard->resetPosition();
   shard->setRemoved(false);
+  dropped = true;
+  removed = false;
 }
 
 void GlassShardState::draw(sf::RenderWindow *window) {
