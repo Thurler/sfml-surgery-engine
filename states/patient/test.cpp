@@ -1,4 +1,5 @@
 #include "../tools/geltool.h"
+#include "../enemy/glass.h"
 #include "test.h"
 
 #include "math.h"
@@ -38,6 +39,16 @@ void TestPatientState::interactGel(const std::vector<Ripple *> &ripples, double 
   }
 }
 
+CommonEnemyState *TestPatientState::interactForceps(const sf::Vector2i &position) {
+  for (unsigned int i = 0; i < smallCutCount; i++) {
+    if (glassShards[i] == NULL || glassShards[i]->isDisposed()) continue;
+    if (glassShards[i]->grabForceps(position)) {
+      return glassShards[i];
+    }
+  }
+  return NULL;
+}
+
 void TestPatientState::update() {
   for (unsigned int i = 0; i < smallCutCount; i++) {
     if (smallCuts[i] == NULL) continue;
@@ -62,7 +73,13 @@ TestPatientState::TestPatientState(
   GlobalValues *global, VitalsState *vitals, ScoreState *score
 ) : CommonPatientState(global, vitals, score) {
   for (unsigned int i = 0; i < smallCutCount; i++) {
-    smallCuts[i] = new SmallCutState(global, smallCutsPositions[i], smallCutsAngles[i]);
+    GlassShardState *shard = new GlassShardState(
+      global, smallCutsPositions[i], smallCutsAngles[i]
+    );
+    glassShards[i] = shard;
+    smallCuts[i] = new SmallCutState(
+      global, smallCutsPositions[i], smallCutsAngles[i], shard
+    );
   }
 }
 

@@ -126,6 +126,14 @@ By taking the distance between the ripple's center and each point A and B, we ca
 - If neither point is contained in the circle, return 0
 - If only one point is inside the circle, take it as a pivot and compute the distance from it to the circle's edge, return that distance divided by the segment's length
 
+### 3.9 - Glass Shard Object
+
+A final entity representing a small glass shard, usually associated with a small cut. It is represented by a rectangle in 2D space with fixed dimensions, and it aligns itself based on its associated cut's coordinates and orientation - it will center itself along the cut's axis, and protrude outwards at a 90 degree angle. It will keep track of its current position, as well as its original position, should it need to be reset.
+
+In order to give it the illusion of being lodged in, we need to stop drawing the rectangle at the line where the rectangle intersects the cut. However, this should only be done before the shard is fully removed, to avoid having the player manually put it back in. We thus store a flag that tells the object if it must be hidden or not - which will help it calculate its effective height.
+
+Its interaction with the forceps is simply a check if the forceps point lies within the boundaries of the effective rectangle that is protruding outside the wound. We use a simple scalar projection algorithm to check for that, where the projection of that point on 2 adjacent sides of the rectangle must be within the effective width and height.
+
 ## 4 - States (Globals)
 
 ### 4.1 - Common State
@@ -175,7 +183,7 @@ The drain tool currently does nothing, except for draw a rectangular tube from t
 
 ### 5.4 - Forceps Tool State
 
-The forceps tool currently does nothing.
+The forceps tool simply checks for collisions against grabbable objects in the patient at the current position, and stores the object it collides with, if any. Every frame, if it is holding something, the forceps tool will update that object's position, which might trigger events in that object. Once the forceps lets go of that object, it will fire an event to that object informing it was released, and go back to holding nothing. Whenever the forceps stops being the active tool, it will automatically drop anything it is holding.
 
 ### 5.5 - Gel Tool State
 
@@ -232,6 +240,12 @@ A basic class that extends the functionality of a state to that of an enemy. Sin
 ### 6.2 - Small Cut Enemy State
 
 The small cut enemy state is the enemy abstraction of the object small cut, storing its properties that relate to the state, rather than the object itself. These include the HP and damage calculations, as well as handling gel interactions. The damage it takes from a gel's interactions depends on the fraction of the cut that is covered by the gel ripple.
+
+Optionally, the small cut can be associated with another enemy, assumed to be lodged onto the small cut itself. If this association exists, the small cut will not be able to interact with gel ripples until that associated enemy is dealt with.
+
+### 6.3 - Glass Shard Enemy State
+
+The glass shard enemy state is the enemy abstraction of the object glass shard, storing state properties, rather than object properties. This includes score control, what action will be taken when it is dropped, and storing the offset it was grabbed with, to preserve that offset when it is being moved around.
 
 ## 7 - States (Patients)
 

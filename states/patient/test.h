@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../enemy/smallcut.h"
+#include "../enemy/glass.h"
 #include "common.h"
 
 class TestPatientState: public CommonPatientState {
@@ -13,6 +14,7 @@ class TestPatientState: public CommonPatientState {
     static const double smallCutsAngles[smallCutCount];
 
     SmallCutState *smallCuts[smallCutCount];
+    GlassShardState *glassShards[smallCutCount];
 
   public:
     TestPatientState(GlobalValues *g, VitalsState *v, ScoreState *s);
@@ -27,7 +29,7 @@ class TestPatientState: public CommonPatientState {
     void interactLaser() {}
     void interactDrain() {}
     void interactScalpel() {}
-    void interactForceps() {}
+    CommonEnemyState *interactForceps(const sf::Vector2i &p);
     void interactStabilizer(double healed);
 };
 

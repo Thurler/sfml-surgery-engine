@@ -3,12 +3,15 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "math.h"
+#include "../enemy/common.h"
 #include "commontool.h"
+
+#include "math.h"
 
 class ForcepsToolState: public CommonToolState {
   private:
-    void processForceps();
+    bool lastMouseActive = false;
+    CommonEnemyState *heldItem = NULL;
 
   public:
     ForcepsToolState(GlobalValues *g, CommonPatientState *p) : CommonToolState(g, p) {}

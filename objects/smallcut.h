@@ -8,14 +8,14 @@
 
 class SmallCut: public CommonObject {
   private:
-    static constexpr float length = 50;
-
     sf::Vector2f positionA;
     sf::Vector2f positionB;
     sf::Vector2f unit;
     double lineEquation[2];
 
   public:
+    static constexpr float length = 50;
+
     SmallCut(GlobalValues *g, const sf::Vector2i &p, double a);
     ~SmallCut() {}
 
