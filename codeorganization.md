@@ -79,6 +79,7 @@ The basic entity inside the code, this is something that will keep an internal s
 - Generate a unit vector pointing at a specific angle
 - Compute the distance between 2 points
 - Compute the angle between 2 vectors
+- Compute the scalar projection of a vector onto another
 - Solve the quadratic equation Ax^2 + Bx + C = 0
 - Find the 0/1/2 points where a line intersects a circle in 2d space
 - Convert an integer to a string, padding with zeroes

@@ -17,6 +17,7 @@ class CommonObject {
     double getDistance(sf::Vector2f a, sf::Vector2f b);
     double getAngle(sf::Vector2i a, sf::Vector2i b);
     double getAngle(sf::Vector2f a, sf::Vector2f b);
+    double scalarProjection(sf::Vector2f a, sf::Vector2f b);
     bool solveQuadratic(double a, double b, double c, double *roots);
     bool solveLineCircleIntersect(
       double *line, sf::Vector2i center, double r, sf::Vector2f *s

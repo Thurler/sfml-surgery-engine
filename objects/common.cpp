@@ -31,6 +31,12 @@ double CommonObject::getAngle(sf::Vector2f a, sf::Vector2f b) {
   return acos(res);
 }
 
+double CommonObject::scalarProjection(sf::Vector2f a, sf::Vector2f b) {
+  double dot = (a.x * b.x) + (a.y * b.y);
+  double magnitudeB = sqrt(pow(b.x, 2) + pow(b.y, 2));
+  return dot/magnitudeB;
+}
+
 bool CommonObject::solveQuadratic(double a, double b, double c, double *roots) {
   // Solve generic Ax^2 + Bx + C = 0
   if (a == 0) {
